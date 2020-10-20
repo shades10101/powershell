@@ -50,7 +50,7 @@ function Invoke-Archive {
   begin {
           # Variable setup.
           $hostname = $env:COMPUTERNAME 
-          $backupfolder = "\\mixs-share\Software\Script file backup\$hostname\"
+          $backupfolder = "\\***SERVERNAME***\Software\Script file backup\$hostname\"
           $error.clear()
 
           # Verify that there is a \ at the end of the variables
