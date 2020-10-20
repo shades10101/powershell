@@ -1,0 +1,1 @@
+﻿Get-ADUser -Server domain -SearchBase "OU=domain,OU=base,DC=domain,DC=loc" -Filter -properties Name, PasswordNeverExpires | where { $_.passwordNeverExpires -eq "true" } | where {$_.enabled -eq "true"} 
