@@ -2,7 +2,6 @@
 .SYNOPSIS
   Provide script with a foldername, file types and destination folder. With this information the script will get all relevant files older than one month,
   archive them to the destination folder and move the original files to backup folder. As per the ticket that I was working with, this searches for wildcards in the filename.
-  The use case for this file is to clean up the AQS folder on the app servers that are running out of space: https://hd.univeris.com/browse/INF-10621
 
 .PARAMETER FolderName
     The directory that we will be working with to archive
@@ -17,7 +16,6 @@
 	How old should the files be?
 
 .INPUTS
-  Invoke-archive -FolderName "C:\data" -DestinationPath "C:\Archive" -FileType "RTP"
 
 .OUTPUTS
   File outputs error if any, using $Error[0].
