@@ -1,0 +1,31 @@
+# Old univeris forest credentials
+$old_user = "***************"
+$old_password = ConvertTo-SecureString -AsPlainText -Force -string "*************"
+$old_credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $old_user, $old_password
+
+# New forest credentials
+$user = "***************"
+$password = ConvertTo-SecureString -AsPlainText -Force -string "***************"
+$credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $user, $password
+
+# Remove machine from old forest
+remove-computer -credential $old_credential -passthru -verbose
+
+# Find ethernet adapters
+$AllNetAdapters=Get-NetAdapter
+
+# Set DNS config to new forest domain controllers
+foreach ($Adapter in $AllNetAdapters) {
+  Set-DnsClientServerAddress -InterfaceIndex $Adapter.ifindex -ServerAddresses DNSSERVER
+}
+
+# Join new forest 
+Add-Computer -Domain "***************" -Credential $credential
+
+#Change config to DHCP
+foreach ($Adapter in $AllNetAdapters) {
+  Set-DnsClientServerAddress -InterfaceIndex $Adapter.ifindex -ResetServerAddresses
+}
+
+#Reset computer
+Restart-Computer -ComputerName localhost 
