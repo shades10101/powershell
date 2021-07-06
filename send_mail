@@ -1,0 +1,15 @@
+# Script reads CSV, and sends user login and password through email.
+# CSV has two columns:
+# 1) Column for username
+# 2) Column for password.
+
+$smtpserver = "mail.SOMETHING.com"
+$from = "it@ORG.com"
+$users = Import-Csv -Path "C:\Users\~~~~~\Desktop\test.csv"
+
+ForEach ($user in $users) {
+  $body = @"
+    This is a test
+  "@
+Send-MailMessage -From $from -to $user.username -subject "Testing 1 2 3" -Body $body -SmtpServer $smtpserver
+}  
